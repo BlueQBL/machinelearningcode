@@ -1,5 +1,10 @@
-
+'''
+PyTorch数学基础
+'''
 import torch
+'''
+PyTorch中的主要函数
+'''
 # 1、torch.seed()----->用于生成不确定的随机数，返回一个64位的数值
 print(torch.seed())
 # 2、torch.manual_seed(12)--->设定生成随机数的种子，并返回一个torch.Generator对象

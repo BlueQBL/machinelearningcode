@@ -1,3 +1,8 @@
+'''
+测试PyTorch是否GPU安装成功
+并且体验GPU计算速度与CPU计算速度的差异
+'''
+
 import torch
 import time
 
