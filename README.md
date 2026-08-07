@@ -32,6 +32,8 @@ pip install numpy matplotlib
 1.克隆仓库到本地
 git clone https://github.com/BlueQBL/machinelearningcode.git
 cd machinelearningcode
+
+
 2.进入对应主题文件夹，运行脚本
 # 示例：进入基础示例目录
 cd pytorchstudy/pytorchsimuse
