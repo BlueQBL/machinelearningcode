@@ -1,7 +1,7 @@
 '''
 PyTorch数学基础
 '''
-import torch
+
 '''
 1.PyTorch中的主要函数
 '''
