@@ -29,7 +29,9 @@
 pip install numpy matplotlib
 ```
 使用方式
+
 1.克隆仓库到本地
+
 git clone https://github.com/BlueQBL/machinelearningcode.git
 cd machinelearningcode
 
