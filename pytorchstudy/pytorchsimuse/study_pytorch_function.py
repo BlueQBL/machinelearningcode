@@ -78,4 +78,3 @@ grad_t = torch.tensor([1., 2.])
 loss.backward(gradient=grad_t)
 # 打印w的梯度
 print(w.grad)
-print("===================示例三：介绍retain_graph参数的用法===============")
