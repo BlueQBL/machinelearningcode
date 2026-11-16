@@ -78,3 +78,34 @@ grad_t = torch.tensor([1., 2.])
 loss.backward(gradient=grad_t)
 # 打印w的梯度
 print(w.grad)
+# torch.autograd.grad() ----->该函数实现求取梯度
+# 函数参数如下：
+'''
+torch.autograd.grad(outputs,
+                    inputs,
+                    grad_outputs=None,
+                    retain_graph=None,
+                    create_graph=False)
+'''
+# 具体参数说明：
+'''
+outputs：用于求导的张量，如上例中的loss。
+inputs：需要梯度的张量，如上例中的w。
+retain_graph：保存计算图。
+grad_outputs：多梯度权重。
+create_graph：创建导数计算图，用于高阶求导。
+'''
+# 示例：计算y=x^2的二阶导数的代码的实现
+print("===================示例三：计算y=x^2的二阶导数的代码的实现===============")
+# 创建一个张量x，值为3.0，并设置requires_grad=True以计算梯度
+x = torch.tensor([3.], requires_grad=True)
+# 计算x的平方，得到y
+y = torch.pow(x, 2)
+# 计算y关于x的梯度，create_graph=True表示同时计算二阶导数
+grad1 = torch.autograd.grad(y, x, create_graph=True)
+# 输出一阶导数：[6.]
+print(grad1)
+# 计算一阶导数关于x的梯度
+grad2 = torch.autograd.grad(grad1[0], x)
+# 输出二阶导数：[2.]
+print(grad2)
