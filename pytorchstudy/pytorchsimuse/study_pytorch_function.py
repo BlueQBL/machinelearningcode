@@ -187,3 +187,174 @@ print(id(a), a)
 # in-place操作，地址不变
 a += torch.tensor([1])
 print(id(a), a)
+'''
+2.PyTorch统计函数
+'''
+# 1.求所有元素的积
+'''
+使用函数torch.prod()求所有元素的积，语法如下:
+    torch.prod(input, dim=None, keepdim=False)
+torch.prod()是一个PyTorch函数，用于计算张量(Tensor)中所有元素的乘积。
+它接受一个张量作为输入，并返回一个标量值，表示输入张量中所有元素的乘积。
+【代码说明】
+input：输入张量。
+dim：指定沿哪个维度进行乘积运算。默认值为None，表示计算整个张量的乘积。
+    如果指定了维度，那么结果将是一个降低该维度的张量。
+keepdim：布尔值，表示是否保持原始张量的维度。默认值为False，表示不保持原始维度。
+    如果设置为True，则结果张量的维度与输入张量相同，但指定的维度大小为1。
+'''
+print("===================求所有元素的积===============")
+# 创建一个2×2的张量a
+a = torch.tensor([[1, 2], [3, 4]])
+# 计算张量a中所有元素的乘积，并将结果赋值给result
+result = torch.prod(a)
+print(result)  # 输出：24
+# 沿着第0维（行）计算张量a中元素的乘积，并将结果赋值给result_dim
+result_dim = torch.prod(a, dim=0)
+print(result_dim)  # 输出：tensor([3, 8])
+# 沿着第0维（行）计算张量a中元素的乘积，并保持原始维度，将结果赋值给result_keepdim
+result_keepdim = torch.prod(a, dim=0, keepdim=True)
+print(result_keepdim)  # 输出：tensor([[3, 8]])
+
+# 2.求所有元素的和
+'''
+使用torch.sum()函数求和，该函数对输入的张量数据的某一维度求和，一共有两种格式。
+第一种格式:torch.sum(input, dtype=None);计算输入张量input中所有元素的和，返回一个标量值。
+第二种格式:torch.sum(input, dim, keepdim=False, dtype=None)
+    计算输入张量input在指定维度dim上的和，并返回一个新的张量。
+参数说明：
+    input：输入一个张量。
+    dim：要求和的维度，可以是一个列表。当dim=0时，即第0个维度会缩减，也就是说将N行压缩成一行，
+         故相当于对列进行求和；当dim=1时，对行进行求和。
+    keepdim：求和之后这个dim的元素个数为1，所以要被去掉，如果要保留这个维度，则要保证keepdim=True。
+             如果keepdim为True，则保留原始张量的维度；如果keepdim为False，则不保留原始张量的维度。
+'''
+print("===================求所有元素的和===============")
+# 首先，创建初始张量
+# 创建一个2×2的张量a，元素为随机数
+a = torch.rand(2, 2)
+print(a)
+# 设置参数input和dim
+a1 = torch.sum(a)  # 计算张量a所有元素的和
+a2 = torch.sum(a, dim=(0, 1))  # 沿着第0维和第1维计算张量a的元素和
+a3 = torch.sum(a, dim=0)  # 沿着第0维计算张量a的元素和
+a4 = torch.sum(a, dim=1)  # 沿着第1维计算张量a的元素和
+print(a1)
+print(a2)
+print(a3)
+print(a4)
+# 设置参数keepdim
+a5 = torch.sum(a, dim=(0, 1), keepdim=True)  # 沿着第0维和第1维计算张量a的元素和，保持原始维度
+a6 = torch.sum(a, dim=(0,), keepdim=True)  # 沿着第0维计算张量a的元素和，保持原始维度
+a7 = torch.sum(a, dim=(1,), keepdim=True)  # 沿着第1维计算张量a的元素和，保持原始维度
+print(a5)
+print(a6)
+print(a7)
+# 3 平均值
+'''
+使用torch.mean()函数求平均值，该函数对输入的张量数据的某一维度求平均值，参数与torch.sum()函数类似，
+也有以下两种格式：     
+torch.mean(input, dtype=None)
+torch.mean(input, dim, keepdim=False, dtype=None)
+'''
+print("===================平均值===============")
+# 创建一个张量a
+a = torch.tensor([[1, 2], [3, 4]])
+# 计算张量a所有元素的平均值，并将结果赋值给a8
+a8 = torch.mean(a.float())
+# 沿着第0维和第1维计算张量a的元素平均值，并将结果赋值给a9
+a9 = torch.mean(a.float(), dim=(0, 1))
+# 沿着第0维计算张量a的元素平均值，并将结果赋值给a10
+a10 = torch.mean(a.float(), dim=0)
+# 沿着第1维计算张量a的元素平均值，并将结果赋值给a11
+a11 = torch.mean(a.float(), dim=1)
+# 打印a8、a9、a10和a11的值
+print(a8)
+print(a9)
+print(a10)
+print(a11)
+# 设置参数keepdim
+# 创建一个张量a
+a = torch.tensor([[1, 2], [3, 4]])
+# 沿着第0维和第1维计算张量a的元素平均值，并保持原始维度，将结果赋值给a12
+a12 = torch.mean(a.float(), dim=(0, 1), keepdim=True)
+# 沿着第0维计算张量a的元素平均值，并保持原始维度，将结果赋值给a13
+a13 = torch.mean(a.float(), dim=(0,), keepdim=True)
+# 沿着第1维计算张量a的元素平均值，并保持原始维度，将结果赋值给a14
+a14 = torch.mean(a.float(), dim=(1,), keepdim=True)
+# 打印a12、a13和a14的值
+print(a12)
+print(a13)
+print(a14)
+# 4 最大值
+'''
+使用torch.max()函数求最大值，参数与torch.sum()函数类似，但是参数dim须为整数
+torch.max(input, dtype=None)
+torch.max(input, dim, keepdim=False, dtype=None)
+'''
+print("===================最大值===============")
+# 创建一个张量a
+a = torch.tensor([[1, 2], [3, 4]])
+# 计算张量a所有元素的最大值，并将结果赋值给a15
+a15 = torch.max(a)
+# 沿着第0维计算张量a的元素最大值，并将结果赋值给a16
+a16 = torch.max(a, dim=0)
+# 沿着第1维计算张量a的元素最大值，并将结果赋值给a17
+a17 = torch.max(a, dim=1)
+# 打印a15、a16和a17的值
+print(a15)
+print(a16)
+print(a17)
+# 创建一个张量a
+a = torch.tensor([[1, 2], [3, 4]])
+# 沿着第0维计算张量a的元素最大值，并保持原始维度，将结果赋值给a18
+a18 = torch.max(a, 0, keepdim=True)
+# 沿着第1维计算张量a的元素最大值，并保持原始维度，将结果赋值给a19
+a19 = torch.max(a, 1, keepdim=True)
+# 打印a18和a19的值
+print(a18)
+print(a19)
+# 5 最小值
+'''
+使用torch.min()函数求最小值，参数与torch.max()函数类似
+torch.min(input, dtype=None)
+torch.min(input, dim, keepdim=False, dtype=None)
+'''
+print("===================最小值===============")
+# 创建一个张量a
+a = torch.tensor([[1, 2], [3, 4]])
+# 计算张量a所有元素中的最小值，并将结果赋值给a20
+a20 = torch.min(a)
+# 沿着第0维计算张量a的元素最小值，并将结果赋值给a21
+a21 = torch.min(a, dim=0)
+# 沿着第1维计算张量a的元素最小值，并将结果赋值给a22
+a22 = torch.min(a, dim=1)
+# 打印a20、a21和a22的值
+print(a20)
+print(a21)
+print(a22)
+# 设置参数keepdim
+# 创建一个张量a
+a = torch.tensor([[1, 2], [3, 4]])
+# 沿着第0维计算张量a的元素最小值，并保持原始维度，将结果赋值给a23
+a23 = torch.min(a, 0, keepdim=True)
+# 沿着第1维计算张量a的元素最小值，并保持原始维度，将结果赋值给a24
+a24 = torch.min(a, 1, keepdim=True)
+# 打印a23和a24的值
+print(a23)
+print(a24)
+# 6 中位数
+'''
+使用函数torch.median()求中位数，该函数返回中位数，参数与torch.max()函数类似
+torch.median(input, dtype=None)
+torch.median(input, dim, keepdim=False, dtype=None)
+'''
+print("===================中位数===============")
+# 设置参数input和dim
+# 创建一个张量a
+a = torch.tensor([[1, 2], [3, 4]])
+# 计算张量a所有元素的中位数，并将结果打印出来
+print(torch.median(a))
+# 沿着第1维计算张量a的元素中位数，并将结果打印出来
+print(torch.median(a, 1))
+#
