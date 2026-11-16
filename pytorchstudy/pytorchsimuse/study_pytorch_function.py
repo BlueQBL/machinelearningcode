@@ -78,7 +78,7 @@ grad_t = torch.tensor([1., 2.])
 loss.backward(gradient=grad_t)
 # 打印w的梯度
 print(w.grad)
-# torch.autograd.grad() ----->该函数实现求取梯度
+# 2.torch.autograd.grad() ----->该函数实现求取梯度
 # 函数参数如下：
 '''
 torch.autograd.grad(outputs,
@@ -109,3 +109,81 @@ print(grad1)
 grad2 = torch.autograd.grad(grad1[0], x)
 # 输出二阶导数：[2.]
 print(grad2)
+# 3.注意事项
+# (1)梯度不能自动清零，在每次反向传播中会叠加
+print("===================梯度不能自动清零，在每次反向传播中会叠加===============")
+# 创建一个需要梯度的张量w
+w = torch.tensor([1.], requires_grad=True)
+# 创建一个需要梯度的张量x
+x = torch.tensor([2.], requires_grad=True)
+# 循环3次
+for i in range(3):
+    # 将x和w相加，结果存储在a中
+    a = torch.add(x, w)
+    # 将w和1相加，结果存储在b中
+    b = torch.add(w, 1)
+    # 将a和b相乘，结果存储在y中
+    y = torch.mul(a, b)
+    # 计算梯度
+    y.backward()
+    # 打印w的梯度
+    print(w.grad)
+# 这会导致我们得不到正确的结果，所以需要手动清零
+# 创建一个需要梯度的张量w
+print("===================手动清零梯度===============")
+w = torch.tensor([1.], requires_grad=True)
+
+# 创建一个需要梯度的张量x
+x = torch.tensor([2.], requires_grad=True)
+
+# 循环3次
+for i in range(3):
+    # 将x和w相加，结果存储在a中
+    a = torch.add(x, w)
+    # 将w和1相加，结果存储在b中
+    b = torch.add(w, 1)
+    # 将a和b相乘，结果存储在y中
+    y = torch.mul(a, b)
+    # 计算梯度
+    y.backward()
+    # 打印w的梯度
+    print(w.grad)
+    # 梯度清零
+    w.grad.zero_()
+# (2)依赖于叶子节点的节点，requires_grad默认为True，
+# 创建一个需要梯度的张量w
+w = torch.tensor([1.], requires_grad=True)
+# 创建一个需要梯度的张量x
+x = torch.tensor([2.], requires_grad=True)
+# 将x和w相加，结果存储在a中
+a = torch.add(x, w)
+# 将w和1相加，结果存储在b中
+b = torch.add(w, 1)
+# 将a和b相乘，结果存储在y中
+y = torch.mul(a, b)
+# 打印a、b、y是否需要梯度
+print(a.requires_grad, b.requires_grad, y.requires_grad)
+# (3)叶子节点不可以执行in-place，因为前向传播记录了叶子节点的地址，反向传播需要用到叶子节点的数据时，
+# 要根据地址寻找数据，执行in-place操作改变了地址中的数据，梯度求解也会发生错误
+print("===================叶子节点不可以执行in-place===============")
+# 创建一个需要梯度的张量w
+w = torch.tensor([1.], requires_grad=True)
+# 创建一个需要梯度的张量x
+x = torch.tensor([2.], requires_grad=True)
+# 将x和w相加，结果存储在a中
+# a = torch.add(x, w)
+# 将w和1相加，结果存储在b中
+# b = torch.add(w, 1)
+# 将a和b相乘，结果存储在y中
+# y = torch.mul(a, b)
+# 对w进行原地加法操作，即w = w + 1
+# w.add_(1)
+# in-place操作即原位操作，在原始内存中改变这个数据
+a = torch.tensor([1])
+print(id(a), a)
+# 开辟新的内存地址
+a = a + torch.tensor([1])
+print(id(a), a)
+# in-place操作，地址不变
+a += torch.tensor([1])
+print(id(a), a)
