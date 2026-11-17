@@ -357,4 +357,74 @@ a = torch.tensor([[1, 2], [3, 4]])
 print(torch.median(a))
 # 沿着第1维计算张量a的元素中位数，并将结果打印出来
 print(torch.median(a, 1))
-#
+# 设置参数keepdim
+# 创建一个张量a
+a = torch.tensor([[1, 2], [3, 4]])
+# 沿着第1维计算张量a的元素中位数，并保持原始维度，将结果赋值给变量median_result
+median_result = torch.median(a, 1, keepdim=True)
+# 打印median_result的值
+print(median_result)
+# 7 众数
+'''
+使用torch.mode()函数求众数，该函数返回众数，参数与torch.max()函数类似:
+torch.mode(input, dtype=None)
+torch.mode(input, dim, keepdim=False, dtype=None)
+'''
+print("===================众数===============")
+# 设置参数input和dim
+# 创建一个张量a
+a = torch.tensor([[1, 2], [3, 4]])
+# 计算张量a所有元素的众数，并将结果打印出来
+print(torch.mode(a))
+# 沿着第0维计算张量a的元素众数，并将结果打印出来
+print(torch.mode(a, 0))
+# 设置参数keepdim
+# 创建一个张量a
+a = torch.tensor([[1, 2], [3, 4]])
+# 沿着第1维计算张量a的元素众数，并保持原始维度，将结果赋值给变量mode_result
+mode_result = torch.mode(a, 1, keepdim=True)
+# 打印mode_result的值
+print(mode_result)
+# 8 方差
+'''
+使用torch.var()函数求方差，该函数返回输入张量中所有元素的方差
+torch.var(input, unbiased=True)
+torch.var(input, dim, unbiased=True, keepdim=False, *, out=None)
+参数说明：
+input：输入张量。
+dim：要求和的维度，可以是一个列表，
+    当dim=0时，即第0个维度会缩减，也就是说将N行压缩成一行，故相当于对列进行求和，
+    当dim=1时，对行进行求和。
+unbiased：是否使用无偏估计，布尔型。如果unbiased为False，则将通过有偏估计量计算方差，否则将使用“贝塞尔校正”更正。
+keepdim：求和之后，这个dim的元素个数为1，所以要被去掉，如果要保留这个维度，则应该将keepdim设置为True。
+'''
+print("===================方差===============")
+# 设置参数input和dim
+# 创建一个张量a
+a = torch.tensor([[1, 2], [3, 4]])
+# 沿着第1维计算张量a的元素方差，并将结果赋值给变量var_result
+var_result = torch.var(a.float(), 1)
+# 打印var_result的值
+print(var_result)
+# 设置参数unbiased
+print(torch.var(a.float(), 1, unbiased=False))
+# 设置参数keepdim
+print(torch.var(a.float(), 1, unbiased=False, keepdim=True))
+# 9 标准差
+'''
+使用torch.std()函数求标准差，该函数返回输入张量中所有元素的标准差，参数与torch.var()函数类似：
+torch.std(input, unbiased=True)
+torch.std(input, dim, unbiased=True, keepdim=False, *, out=None)
+'''
+print("===================标准差===============")
+# 设置参数input和dim
+# 创建一个张量a
+a = torch.tensor([[1, 2], [3, 4]])
+# 沿着第1维计算张量a的元素标准差，并将结果赋值给变量std_result
+std_result = torch.std(a.float(), 1)
+# 打印std_result的值
+print(std_result)
+# 设置参数unbiased
+print(torch.std(a.float(), 1, unbiased=False))
+# 设置参数keepdim
+print(torch.std(a.float(), 1, unbiased=False, keepdim=True))
