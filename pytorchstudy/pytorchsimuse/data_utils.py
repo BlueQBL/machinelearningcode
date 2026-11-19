@@ -3,30 +3,15 @@
 """
 '''
 1.numpy：是一个用于科学计算的Python库，它提供了大量的函数和数据结构，使得处理大型多维数组和矩阵变得更加简单。
-        ndarray是NumPy库的核心数据结构，用于表示多维数组。它是Python编程语言中用于科学计算的基本数据结构之一。
-        维度：ndarray可以具有任意数量的维度，从一维（向量）到三维（立体）、四维甚至更高。每个维度的大小称为轴长。
-        形状：ndarray对象具有一个描述其维度大小的元组，称为形状(Shape)。例如，二维数组的形状可能是(3, 4)，
-            表示有3行4列。
-        数据类型：ndarray中的所有元素都必须是相同的数据类型。数据可以是整数、浮点数、复数等。
-        内存布局：ndarray在内存中是连续存储的，这意味着它允许高效的数据访问和操作。
-        索引和切片：ndarray支持使用方括号进行索引和切片，这允许你访问、修改或操作数组的特定部分。
-        广播：ndarray支持广播功能，这是一种机制，允许在不同形状的数组之间进行数学运算。
-        数学运算：ndarray支持各种数学运算，如加法、减法、乘法、除法等，这些运算可以逐元素应用于数组中的每个元素。
-        函数：NumPy提供了许多内置函数，可以对ndarray执行各种操作，如求和、求平均值、求最大值、求最小值等。
-        通用函数：NumPy还提供了通用函数(ufunc)，这些函数可以对ndarray中的每个元素执行操作，而不需要循环。
 '''
 import numpy as np
 # 1.创建NumPy数组
 '''
 我们可以使用np.array()函数由列表、元组等数据结构中创建NumPy数组。np.array()函数是NumPy库中的一个用于创建数组的函数，
 它提供了一种方便的方式来存储和操作数据。具体解释如下：
-参数object：这是创建数组的对象，可以是单个值、列表、元组等。这意味着你可以将各种类型的数据传递给np.array()，
-    它会尝试将这些数据转换为一个数组。
+参数object：这是创建数组的对象，可以是单个值、列表、元组等。
 可选参数dtype：这个参数用于指定创建数组的数据类型。如果没有指定，np.array()会根据传递的对象自动推断数据类型。
 返回值：该函数返回一个新的NumPy数组，这个数组可以是一维的（向量），也可以是多维的（矩阵或更高维度的张量）。
-np.array()函数非常灵活，可以用来创建各种形状和大小的数组。例如，如果你传递一个列表给np.array()，
-    它会创建一个与该列表具有相同元素和顺序的NumPy数组。如果你传递一个整数，它会创建一个包含该整数的一维数组。
-    此外，np.array()还支持创建多维数组，这对于科学计算和数据分析非常有用。
 '''
 # 从列表创建NumPy数组
 print("从列表创建NumPy数组：")
@@ -139,3 +124,46 @@ plt.plot(x, y2, label="数据系列2")
 plt.legend()
 # 显示图表
 plt.show()
+'''
+3.数据清洗：数据清洗是数据预处理的一部分，主要是对数据进行审查和校验，以确保其准确性、完整性、一致性和可靠性。
+'''
+# 1.Pandas的数据结构Series和DataFrame
+import pandas as pd
+# 创建一个包含整数的Series
+print("创建一个包含整数的Series：")
+s = pd.Series([1, 2, 3, 4, 5])
+# 打印Series的内容
+print(s)
+print("创建一个包含整数的DataFrame：")
+# 创建一个包含姓名、年龄和城市的数据字典
+data3 = {
+    'Name': ['Alice', 'Bob', 'Charlie'],
+    'Age': [25, 30, 35],
+    'City': ['New York', 'London', 'Paris']
+}
+# 将数据字典转换为DataFrame
+df = pd.DataFrame(data3)
+# 打印DataFrame的内容
+print(df)
+# Pandas数据清洗示例
+print("Pandas数据清洗示例：")
+# 1)读取数据
+# 读取CSV文件
+data = pd.read_csv('表格_20261020.csv')
+print(data)
+# 读取Excel文件
+data1 = pd.read_excel('产品推荐.xlsx')
+print(data1)
+# 2)查看数据
+print(data.head())  # 查看前5行数据
+print(data1.head())  # 查看前5行数据
+# 4)处理重复值
+# 检测重复行
+duplicates = data.duplicated()
+# 删除重复行
+data.drop_duplicates(inplace=True)
+# 筛选年龄大于或等于18岁的记录
+filtered_data = df[df['Age'] >= 18]
+# 按年龄升序排列
+sorted_data = filtered_data.sort_values(by='Age', ascending=True)
+print(sorted_data)
