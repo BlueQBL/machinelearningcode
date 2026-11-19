@@ -1,6 +1,6 @@
-'''
+"""
 本文件主要包含数据预处理及常用工具：NumPy、Pandas、Scikit-learn等
-'''
+"""
 '''
 1.numpy：是一个用于科学计算的Python库，它提供了大量的函数和数据结构，使得处理大型多维数组和矩阵变得更加简单。
         ndarray是NumPy库的核心数据结构，用于表示多维数组。它是Python编程语言中用于科学计算的基本数据结构之一。
@@ -73,3 +73,69 @@ print(row1)  # 输出：[1 2]
 # 获取第二列
 col2 = arr[:, 1]
 print(col2)  # 输出：[2 4]
+'''
+2.Matplotlib:Matplotlib是一个用于绘制图形的Python库，可用于实现数据的可视化展示。
+    Matplotlib提供了丰富的功能，使得创建各种类型的图表变得简单。
+'''
+# 1.绘制简单折线图:Matplotlib提供了plot()函数，用于绘制折线图
+# 导入Matplotlib库中的pyplot模块
+import matplotlib.pyplot as plt
+print("绘制简单折线图：")
+# 定义x和y的值
+x = [1, 2, 3, 4, 5]
+y = [2, 4, 6, 8, 10]
+# 使用折线图展示x和y的关系
+plt.plot(x, y)
+# 显示图表
+plt.show()
+# 2 设置图表标题和坐标轴标签:可以使用title()、xlabel()和ylabel()函数分别设置图表标题、x轴标签和y轴标签
+print("设置图表标题和坐标轴标签：")
+# 设置matplotlib的字体为SimHei，以支持中文显示
+plt.rcParams['font.sans-serif'] = ['SimHei']
+# 设置matplotlib的坐标轴负号显示为正常字符，避免乱码问题
+plt.rcParams['axes.unicode_minus'] = False
+# 创建一个简单的折线图
+plt.plot(x, y)
+# 设置图表标题
+plt.title("简单折线图")
+# 设置x轴标签
+plt.xlabel("x轴")
+# 设置y轴标签
+plt.ylabel("y轴")
+# 显示图表
+plt.show()
+# 3.绘制散点图:Matplotlib提供了scatter()函数，用于绘制散点图。我们可以传入两个列表作为参数，
+#   分别表示x轴和y轴的数据
+print("绘制散点图：")
+# 定义x和y的值
+x = [1, 2, 3, 4, 5]
+y = [2, 4, 6, 8, 10]
+# 使用散点图展示x和y的关系
+plt.scatter(x, y)
+# 显示图表
+plt.show()
+# 4.绘制柱状图:Matplotlib提供了bar()函数，用于绘制柱状图。我们可以传入两个列表作为参数，
+#   分别表示x轴的数据和对应的高度。
+print("绘制柱状图：")
+# x轴的数据
+x = [1, 2, 3, 4, 5]
+# y轴的数据（高度）
+heights = [2, 4, 6, 8, 10]
+# 使用bar()函数绘制柱状图，x和heights分别为x轴和y轴的数据
+plt.bar(x, heights)
+# 显示图形
+plt.show()
+# 5 设置图例:我们可以使用legend()函数为图表添加图例。首先，为每个数据系列设置标签，然后调用legend()函数。
+print("设置图例：")
+# 定义x的值
+x = [1, 2, 3, 4, 5]
+# 定义y1和y2的值
+y1 = [2, 4, 6, 8, 10]
+y2 = [1, 3, 5, 7, 9]
+# 使用折线图展示y1和y2的关系，并添加标签
+plt.plot(x, y1, label="数据系列1")
+plt.plot(x, y2, label="数据系列2")
+# 显示图例
+plt.legend()
+# 显示图表
+plt.show()
