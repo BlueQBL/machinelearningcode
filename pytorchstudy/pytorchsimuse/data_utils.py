@@ -157,13 +157,34 @@ print(data1)
 # 2)查看数据
 print(data.head())  # 查看前5行数据
 print(data1.head())  # 查看前5行数据
+# 3)处理缺失值
+# 删除含有缺失值的行
+# data.dropna(inplace=True)
+# 使用平均值填充缺失值
+# data.fillna(data.mean(), inplace=True)
 # 4)处理重复值
 # 检测重复行
 duplicates = data.duplicated()
 # 删除重复行
 data.drop_duplicates(inplace=True)
+# 5)去除异常值
+# data = data[(np.abs(stats.zscore(data['column_to_clean'])) < 3)]
+# 6)纠正错误
+# data['date'] = pd.to_datetime(data['date'], format='%Y-%m-%d')
+# 7)数据类型转换
+# 将字符串类型的日期转换为日期类型
+# data['date'] = pd.to_datetime(data['date'])
+# 8)数据筛选和排序
 # 筛选年龄大于或等于18岁的记录
 filtered_data = df[df['Age'] >= 18]
 # 按年龄升序排列
 sorted_data = filtered_data.sort_values(by='Age', ascending=True)
 print(sorted_data)
+# 9)数据合并和连接
+'''
+merge：根据一个或多个键将两个DataFrame连接在一起。
+join：根据一个键将两个DataFrame连接在一起。
+concat：在指定轴上连接多个DataFrame。
+'''
+# 假设有两个数据集：data1和data2
+# merged_data = pd.merge(data, data1, on='customer_id')
